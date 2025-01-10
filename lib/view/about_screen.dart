@@ -53,7 +53,7 @@ class AboutScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 8), // Jarak antar teks lebih rapat
                 Text(
-                  'Headlines Hub adalah platform berita terkemuka yang menghadirkan berita terbaru, terpercaya, dan relevan dari berbagai sumber di seluruh dunia. Kami berkomitmen untuk memberikan informasi yang akurat dan menarik kepada pembaca kami.',
+                  'Headlines Hub is a leading news platform that brings you the latest, most trusted and relevant news from sources across the world. We are committed to providing accurate and interesting information to our readers.',
                   style: TextStyle(
                     fontSize: 14, // Ukuran teks lebih kecil
                     color: theme.textTheme.bodyMedium?.color,

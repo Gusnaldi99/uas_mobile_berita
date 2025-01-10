@@ -145,7 +145,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   ),
                   child: PopupMenuButton<String>(
                     icon: const Icon(
-                      Icons.filter,
+                      Icons.category,
                       color: Colors.white,
                     ),
                     onSelected: (String value) {

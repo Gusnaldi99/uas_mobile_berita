@@ -169,7 +169,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                             ),
                           );
                         },
-                        backgroundColor: Theme.of(context).primaryColor,
+                        backgroundColor: const Color.fromARGB(255, 255, 17, 0),
                         child: Icon(
                           isBookmarked
                               ? Icons.bookmark

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:uas_mobile_berita/models/categories_new_model.dart';
 import 'package:uas_mobile_berita/models/news_channel_headlines_model.dart';
+import 'package:uas_mobile_berita/view/setting_screen.dart';
 import 'package:uas_mobile_berita/view_model/news_view_model.dart';
 import 'package:uas_mobile_berita/view/news_detail_screen.dart';
 
@@ -28,17 +29,31 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       // definisi route
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 17, 0),
-        title: Text(
-          "Headline Hub",
-          style: GoogleFonts.poppins(
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
+          backgroundColor: const Color.fromARGB(255, 255, 17, 0),
+          title: Text(
+            "Headline Hub",
+            style: GoogleFonts.poppins(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+            ),
           ),
-        ),
-        // Tolong btn Setting
-      ),
+          // Tolong btn Setting
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.settings),
+              color: Colors.white,
+              iconSize: 25,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsScreen(),
+                  ),
+                ).then((_) => setState(() {}));
+              },
+            ),
+          ]),
       body: RefreshIndicator(
         onRefresh: () async {
           setState(() {});
@@ -225,16 +240,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => NewsDetailScreen(
-                                    newsTitle: article.title ?? '',
-                                    newImage: article.urlToImage ?? '',
-                                    newsDate: article.publishedAt ?? '',
-                                    author: article.author ?? '',
-                                    desc: article.description ?? '',
-                                    content: article.content ?? '',
-                                    source: article.source?.name ?? '',
-                                  ),
+                                builder: (context) => NewsDetailScreen(
+                                  newsTitle: article.title ?? '',
+                                  newImage: article.urlToImage ?? '',
+                                  newsDate: article.publishedAt ?? '',
+                                  author: article.author ?? '',
+                                  desc: article.description ?? '',
+                                  content: article.content ?? '',
+                                  source: article.source?.name ?? '',
                                 ),
+                              ),
                             );
                           },
                           child: Container(
