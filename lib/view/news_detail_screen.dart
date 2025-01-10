@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:news_app/models/bookmark_model.dart';
-import 'package:news_app/providers/bookmark_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:uas_mobile_berita/models/bookmark_model.dart';
+import 'package:uas_mobile_berita/providers/bookmark_provider.dart';
 
 class NewsDetailScreen extends StatefulWidget {
   final String newImage, newsTitle, newsDate, author, desc, content, source;

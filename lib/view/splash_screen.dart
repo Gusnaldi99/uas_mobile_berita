@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_app/view/btn_navigasi.dart';
+import 'package:uas_mobile_berita/view/btn_navigasi.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

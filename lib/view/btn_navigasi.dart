@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/view/bookmark_screen.dart';
+import 'package:uas_mobile_berita/view/bookmark_screen.dart';
+import 'package:uas_mobile_berita/view/categories_screen.dart';
 import 'home_screen.dart';
-import 'categories_screen.dart';
 
 class MyButton extends StatefulWidget {
   const MyButton({super.key});

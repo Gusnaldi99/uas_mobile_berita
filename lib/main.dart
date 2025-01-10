@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uas_mobile_berita/view/splash_screen.dart';
 
 void main() {
   runApp(
