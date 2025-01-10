@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="uas_mobile_berita"
+        android:label="HEADLINE HUB"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
