@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:uas_mobile_berita/models/categories_new_model.dart';
 import 'package:uas_mobile_berita/models/news_channel_headlines_model.dart';
 import 'package:uas_mobile_berita/view_model/news_view_model.dart';
+import 'package:uas_mobile_berita/view/news_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -87,7 +88,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                //Tolong buatkan route untuk melihat detail content
+                                MaterialPageRoute(
+                                  builder: (context) => NewsDetailScreen(
+                                    newsTitle: article.title ?? '',
+                                    newImage: article.urlToImage ?? '',
+                                    newsDate: article.publishedAt ?? '',
+                                    author: article.author ?? '',
+                                    desc: article.description ?? '',
+                                    content: article.content ?? '',
+                                    source: article.source?.name ?? '',
+                                  ),
+                                ),
                               );
                             },
                             child: Container(
@@ -213,7 +224,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              //Tolong buatkan route untuk melihat detail content
+                              MaterialPageRoute(
+                                  builder: (context) => NewsDetailScreen(
+                                    newsTitle: article.title ?? '',
+                                    newImage: article.urlToImage ?? '',
+                                    newsDate: article.publishedAt ?? '',
+                                    author: article.author ?? '',
+                                    desc: article.description ?? '',
+                                    content: article.content ?? '',
+                                    source: article.source?.name ?? '',
+                                  ),
+                                ),
                             );
                           },
                           child: Container(
