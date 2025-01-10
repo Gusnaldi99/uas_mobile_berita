@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:uas_mobile_berita/providers/bookmark_provider.dart';
 import 'package:uas_mobile_berita/view/splash_screen.dart';
 
 void main() {
   runApp(
-    const MyApp(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => BookmarkProvider()),
+      ],
+      child: const MyApp(),
+    ),
   );
 }
 
