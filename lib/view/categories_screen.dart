@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:uas_mobile_berita/models/categories_new_model.dart';
+import 'package:uas_mobile_berita/view/setting_screen.dart';
 import 'package:uas_mobile_berita/view_model/news_view_model.dart';
 import 'package:uas_mobile_berita/view/news_detail_screen.dart';
 
@@ -92,6 +93,21 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           ),
         ),
         // Buatkan setting screen lalu buat icon diappbar arahkan ke setting screen
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            color: Colors.white,
+            iconSize: 25,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SettingsScreen(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
