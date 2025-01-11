@@ -109,235 +109,240 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      hintText: 'Search',
-                      hintStyle:
-                          GoogleFonts.poppins(fontStyle: FontStyle.italic),
-                      prefixIcon: const Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(
-                          color: Color.fromARGB(255, 255, 17, 0),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          setState(() {});
+        },
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        hintText: 'Search',
+                        hintStyle:
+                            GoogleFonts.poppins(fontStyle: FontStyle.italic),
+                        prefixIcon: const Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: const BorderSide(color: Colors.grey),
                         ),
-                      ),
-                    ),
-                    onChanged: _filterArticles,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Container(
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 255, 17, 0),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: PopupMenuButton<String>(
-                    icon: const Icon(
-                      Icons.category,
-                      color: Colors.white,
-                    ),
-                    onSelected: (String value) {
-                      setState(() {
-                        categoryName = value;
-                        _searchController.clear();
-                        _loadArticles();
-                      });
-                    },
-                    itemBuilder: (BuildContext context) {
-                      return categoriesList.map((String choice) {
-                        return PopupMenuItem<String>(
-                          value: choice,
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.circle,
-                                size: 12,
-                                color: categoryName == choice
-                                    ? const Color.fromARGB(255, 255, 17, 0)
-                                    : Colors.grey,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(choice, style: GoogleFonts.poppins()),
-                            ],
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 255, 17, 0),
                           ),
-                        );
-                      }).toList();
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 255, 17, 0),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text(
-                categoryName,
-                style: GoogleFonts.poppins(
-                  fontSize: 13,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: _isLoading
-                ? const Center(
-                    child: SpinKitCircle(
-                      size: 50,
-                      color: Colors.blue,
-                    ),
-                  )
-                : _filteredArticles == null || _filteredArticles!.isEmpty
-                    ? Center(
-                        child: Text(
-                          'Mohon maaf artikel tidak ditemukan.',
-                          style: GoogleFonts.poppins(),
                         ),
-                      )
-                    : ListView.builder(
-                        padding: const EdgeInsets.all(8.0),
-                        itemCount: _filteredArticles!.length,
-                        itemBuilder: (context, index) {
-                          final article = _filteredArticles![index];
-                          DateTime dateTime = DateTime.parse(
-                            article.publishedAt.toString(),
-                          );
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => NewsDetailScreen(
-                                      newsTitle: article.title ?? '',
-                                      newImage: article.urlToImage ?? '',
-                                      newsDate: article.publishedAt ?? '',
-                                      author: article.author ?? '',
-                                      desc: article.description ?? '',
-                                      content: article.content ?? '',
-                                      source: article.source?.name ?? '',
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
+                      ),
+                      onChanged: _filterArticles,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 255, 17, 0),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: PopupMenuButton<String>(
+                      icon: const Icon(
+                        Icons.category,
+                        color: Colors.white,
+                      ),
+                      onSelected: (String value) {
+                        setState(() {
+                          categoryName = value;
+                          _searchController.clear();
+                          _loadArticles();
+                        });
+                      },
+                      itemBuilder: (BuildContext context) {
+                        return categoriesList.map((String choice) {
+                          return PopupMenuItem<String>(
+                            value: choice,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.circle,
+                                  size: 12,
+                                  color: categoryName == choice
+                                      ? const Color.fromARGB(255, 255, 17, 0)
+                                      : Colors.grey,
                                 ),
-                                elevation: 3,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(12),
-                                        child: CachedNetworkImage(
-                                          imageUrl:
-                                              article.urlToImage.toString(),
-                                          fit: BoxFit.cover,
-                                          height: 80,
-                                          width: 80,
-                                          placeholder: (context, url) =>
-                                              const Center(
-                                            child: SpinKitCircle(
-                                              size: 30,
-                                              color: Colors.blue,
-                                            ),
-                                          ),
-                                          errorWidget: (context, url, error) =>
-                                              const Icon(
-                                            Icons.error_outline,
-                                            color: Colors.red,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(
-                                              article.title!,
-                                              style: GoogleFonts.poppins(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            const SizedBox(height: 4),
-                                            Text(
-                                              article.source!.name.toString(),
-                                              style: GoogleFonts.poppins(
-                                                fontSize: 12,
-                                                color: Colors.grey[600],
-                                              ),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.calendar_today,
-                                                  size: 12,
-                                                  color: Colors.grey[600],
-                                                ),
-                                                const SizedBox(width: 4),
-                                                Text(
-                                                  format.format(dateTime),
-                                                  style: GoogleFonts.poppins(
-                                                    fontSize: 12,
-                                                    color: Colors.grey[600],
-                                                  ),
-                                                ),
-                                                const Spacer(),
-                                                // IconButton(
-                                                //   onPressed: () {},
-                                                //   icon: const Icon(
-                                                //     Icons.bookmark_border,
-                                                //     size: 20,
-                                                //   ),
-                                                //   padding: EdgeInsets.zero,
-                                                //   constraints:
-                                                //       const BoxConstraints(),
-                                                //   color: Colors.blue,
-                                                // ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                                const SizedBox(width: 8),
+                                Text(choice, style: GoogleFonts.poppins()),
+                              ],
                             ),
                           );
-                        },
+                        }).toList();
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 255, 17, 0),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  categoryName,
+                  style: GoogleFonts.poppins(
+                    fontSize: 13,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: _isLoading
+                  ? const Center(
+                      child: SpinKitCircle(
+                        size: 50,
+                        color: Colors.blue,
                       ),
-          ),
-        ],
+                    )
+                  : _filteredArticles == null || _filteredArticles!.isEmpty
+                      ? Center(
+                          child: Text(
+                            'Mohon maaf artikel tidak ditemukan.',
+                            style: GoogleFonts.poppins(),
+                          ),
+                        )
+                      : ListView.builder(
+                          padding: const EdgeInsets.all(8.0),
+                          itemCount: _filteredArticles!.length,
+                          itemBuilder: (context, index) {
+                            final article = _filteredArticles![index];
+                            DateTime dateTime = DateTime.parse(
+                              article.publishedAt.toString(),
+                            );
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => NewsDetailScreen(
+                                        newsTitle: article.title ?? '',
+                                        newImage: article.urlToImage ?? '',
+                                        newsDate: article.publishedAt ?? '',
+                                        author: article.author ?? '',
+                                        desc: article.description ?? '',
+                                        content: article.content ?? '',
+                                        source: article.source?.name ?? '',
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  elevation: 3,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(12),
+                                          child: CachedNetworkImage(
+                                            imageUrl:
+                                                article.urlToImage.toString(),
+                                            fit: BoxFit.cover,
+                                            height: 80,
+                                            width: 80,
+                                            placeholder: (context, url) =>
+                                                const Center(
+                                              child: SpinKitCircle(
+                                                size: 30,
+                                                color: Colors.blue,
+                                              ),
+                                            ),
+                                            errorWidget: (context, url, error) =>
+                                                const Icon(
+                                              Icons.error_outline,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                article.title!,
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              const SizedBox(height: 4),
+                                              Text(
+                                                article.source!.name.toString(),
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: 12,
+                                                  color: Colors.grey[600],
+                                                ),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.calendar_today,
+                                                    size: 12,
+                                                    color: Colors.grey[600],
+                                                  ),
+                                                  const SizedBox(width: 4),
+                                                  Text(
+                                                    format.format(dateTime),
+                                                    style: GoogleFonts.poppins(
+                                                      fontSize: 12,
+                                                      color: Colors.grey[600],
+                                                    ),
+                                                  ),
+                                                  const Spacer(),
+                                                  // IconButton(
+                                                  //   onPressed: () {},
+                                                  //   icon: const Icon(
+                                                  //     Icons.bookmark_border,
+                                                  //     size: 20,
+                                                  //   ),
+                                                  //   padding: EdgeInsets.zero,
+                                                  //   constraints:
+                                                  //       const BoxConstraints(),
+                                                  //   color: Colors.blue,
+                                                  // ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+            ),
+          ],
+        ),
       ),
     );
   }

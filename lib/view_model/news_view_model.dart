@@ -1,18 +1,28 @@
-// import 'package:http/http.dart';
+import 'dart:io';
 import 'package:uas_mobile_berita/models/categories_new_model.dart';
 import 'package:uas_mobile_berita/models/news_channel_headlines_model.dart';
 import 'package:uas_mobile_berita/repository/news_repository.dart';
 
 class NewsViewModel {
-  final _api = NewsRepository();
+  final NewsRepository _newsRepository = NewsRepository();
 
   Future<NewsChannelHeadlinesModel> fetchNewChannelHeadlinesApi() async {
-    final response = await _api.fetchNewChannelHeadlinesApi();
-    return response;
+    try {
+      return await _newsRepository.fetchNewChannelHeadlinesApi();
+    } on SocketException {
+      throw const SocketException('Tidak ada koneksi internet');
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<CategoriesNewsModel> fetchCategoriesNewsApi(String category) async {
-    final response = await _api.fetchCategoriesNewsApi(category);
-    return response;
+    try {
+      return await _newsRepository.fetchCategoriesNewsApi(category);
+    } on SocketException {
+      throw const SocketException('Tidak ada koneksi internet');
+    } catch (e) {
+      rethrow;
+    }
   }
 }
