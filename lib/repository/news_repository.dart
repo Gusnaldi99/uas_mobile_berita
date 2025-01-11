@@ -1,12 +1,21 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
 import 'package:uas_mobile_berita/models/categories_new_model.dart';
 import 'package:uas_mobile_berita/models/news_channel_headlines_model.dart';
 
 class NewsRepository {
+  Future<bool> _isConnected() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    return connectivityResult != ConnectivityResult.none;
+  }
+
   Future<NewsChannelHeadlinesModel> fetchNewChannelHeadlinesApi() async {
+    if (!await _isConnected()) {
+      throw Exception('Tidak ada koneksi internet');
+    }
+
     String url =
         'https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=073176b0314c4f028f6dadabebf5a810';
 
@@ -19,10 +28,14 @@ class NewsRepository {
       final body = jsonDecode(response.body);
       return NewsChannelHeadlinesModel.fromJson(body);
     }
-    throw Exception('error');
+    throw Exception('Terjadi kesalahan saat mengambil data');
   }
 
   Future<CategoriesNewsModel> fetchCategoriesNewsApi(String category) async {
+    if (!await _isConnected()) {
+      throw Exception('Tidak ada koneksi internet');
+    }
+
     String url =
         'https://newsapi.org/v2/everything?q=${category}&apiKey=073176b0314c4f028f6dadabebf5a810';
 
@@ -35,6 +48,6 @@ class NewsRepository {
       final body = jsonDecode(response.body);
       return CategoriesNewsModel.fromJson(body);
     }
-    throw Exception('error');
+    throw Exception('Terjadi kesalahan saat mengambil data');
   }
 }
