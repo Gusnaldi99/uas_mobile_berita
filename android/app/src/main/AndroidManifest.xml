@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.headline.uas_mobile_berita">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
         android:label="HEADLINE HUB"
         android:name="${applicationName}"

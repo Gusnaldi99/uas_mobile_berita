@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.uas_mobile_berita"
+    namespace = "com.headline.uas_mobile_berita"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
